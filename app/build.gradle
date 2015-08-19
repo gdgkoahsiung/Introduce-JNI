@@ -1,0 +1,36 @@
+apply plugin: 'com.android.model.application'
+
+model {
+    android {
+        compileSdkVersion = 21
+        buildToolsVersion = "21.1.2"
+
+        defaultConfig.with {
+            applicationId = "cc.aznc.asjni"
+            minSdkVersion.apiLevel = 15
+            targetSdkVersion.apiLevel = 21
+            versionCode = 1
+            versionName = "1.0"
+        }
+    }
+
+    android.buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles += file('proguard-rules.txt')
+        }
+    }
+
+    android.ndk {
+        moduleName = "asjni"
+        stl = "gnustl_static"
+        cppFlags += "-std=c++11"
+        cppFlags += "-fexceptions"
+        ldLibs += "log"
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.2.0'
+}
